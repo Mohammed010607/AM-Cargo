@@ -328,12 +328,6 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
   letter-spacing:0;text-transform:none}
 .map-country{font-family:'Archivo',sans-serif;font-size:13px;fill:#4A4D52;
   letter-spacing:.08em;text-transform:uppercase}
-.map-legend{position:absolute;left:22px;bottom:20px;display:flex;gap:18px;
-  flex-wrap:wrap;font-family:var(--label);text-transform:uppercase;
-  letter-spacing:.12em;font-size:12px;color:#9AA0A6}
-.map-legend i{display:inline-block;width:9px;height:9px;border-radius:var(--r-pill);
-  background:var(--red);margin-right:7px;vertical-align:0}
-@media(max-width:700px){.map-legend{position:static;padding:0 22px 20px}}
 
 /* ---- sections arriving as you reach them --------------------------------
    Visible by default. Only a browser that runs the script and has not asked
@@ -925,11 +919,8 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
         <text class="map-country" x="640" y="440">Tanzania</text>
         <text class="map-country" x="150" y="300">Eastern DR Congo</text>
       </svg>
-      <div class="map-legend">
-        <span><i></i>Corridors worked regularly</span>
-        <span>Schematic &mdash; not to scale</span>
-      </div>
     </div>
+  </div>
 </section>
 
 <!-- ----------------------------------------------------------------- fleet -->
