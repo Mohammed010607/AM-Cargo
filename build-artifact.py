@@ -15,7 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, 'index.html')
 OUT = os.path.join(HERE, 'artifact.html')
 
-TITLE = 'A.M. Coach Haulage'
+TITLE = 'AM Cargo'
 
 s = io.open(SRC, encoding='utf-8').read()
 

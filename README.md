@@ -1,7 +1,7 @@
-# A.M. Coach — marketing site
+# AM Cargo — marketing site
 
-The public site for A.M. Coach Company Ltd. One page, plain HTML and CSS, no
-build step and no framework. It carries no customer data, no pricing and no
+The public site for AM Cargo, the trading name of A.M. Coach Company Ltd.
+One page, plain HTML and CSS, no build step and no framework. It carries no customer data, no pricing and no
 operational figures — that all lives in the dispatch system, which is a
 [separate repository](https://github.com/Mohammed010607/Fleet-Dispatch-System).
 
@@ -26,7 +26,7 @@ works, except the hero video, which needs to be served over HTTP.
 
 ## Replacing the photographs
 
-The images are placeholders and should be swapped for A.M. Coach's own trucks.
+The images are placeholders and should be swapped for the company's own trucks.
 Drop a replacement over the file of the same name in `media/` — no code change
 is needed. Roughly what each one carries:
 
