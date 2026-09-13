@@ -16,11 +16,11 @@
   --red:#D2101E;
   --red-dim:#A50D18;
   --white:#FFFFFF;
-  --paper:#EBEDEF;
+  --paper:#DEE3E8;
   --paper-2:#E1E4E6;
   --silver:#C6CACD;
   --silver-2:#DDE0E2;
-  --grey:#6E7276;
+  --grey:#5E6367;
   --grey-2:#8E9296;
   /* Layered rather than one blur: a tight contact shadow that reads as
      weight, over a wide soft one that reads as height. */
@@ -335,6 +335,25 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 .js-motion .reveal{opacity:0;transform:translateY(22px)}
 .js-motion .reveal.in{opacity:1;transform:none;
   transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1)}
+/* ---- the road ------------------------------------------------------------
+   A scroll indicator shaped like the thing the business does. The grey lane
+   is the whole page; the red is how far down it you are. Sits above the
+   content but takes no clicks.                                            */
+.road{position:fixed;left:8px;top:0;height:100vh;z-index:40;pointer-events:none;
+  opacity:.92}
+.road svg{height:100vh;width:auto;display:block;overflow:visible}
+.road .lane{fill:none;stroke:#9AA0A6;stroke-opacity:.32;stroke-width:7;
+  stroke-linecap:round}
+.road .travelled{fill:none;stroke:var(--red);stroke-width:7;stroke-linecap:round}
+.road .markings{fill:none;stroke:#fff;stroke-opacity:.55;stroke-width:1.6;
+  stroke-dasharray:6 10;stroke-linecap:round}
+.road .rig{fill:var(--red);stroke:#fff;stroke-width:2.5}
+.road .rig-halo{fill:var(--red);opacity:.22}
+
+/* It would crowd a phone, and there is little page width to spare */
+@media(max-width:1200px){.road{display:none}}
+@media(prefers-reduced-motion:reduce){.road{display:none}}
+
 @media(prefers-reduced-motion:reduce){
   .js-motion .reveal{opacity:1;transform:none}
   .ticker .run{animation:none}
@@ -361,6 +380,19 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 </style>
 </head>
 <body>
+
+<div class="road" aria-hidden="true">
+  <svg viewBox="0 0 32 900" preserveAspectRatio="xMidYMin meet">
+    <path id="lane" class="lane"
+          d="M16,6 C4,120 28,196 16,306 C4,416 28,492 16,602 C4,712 28,788 16,894"/>
+    <path class="travelled" id="travelled"
+          d="M16,6 C4,120 28,196 16,306 C4,416 28,492 16,602 C4,712 28,788 16,894"/>
+    <path class="markings"
+          d="M16,6 C4,120 28,196 16,306 C4,416 28,492 16,602 C4,712 28,788 16,894"/>
+    <circle class="rig-halo" id="righalo" cx="16" cy="6" r="11"/>
+    <circle class="rig" id="rig" cx="16" cy="6" r="5.5"/>
+  </svg>
+</div>
 
 <header class="mast">
   <div class="wrap">
@@ -1078,6 +1110,48 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* The red lane is drawn by moving its dash offset from "all hidden" to "none
+   hidden" in step with how far down the page you are, and the marker rides
+   the same path so it always sits exactly at the head of it. */
+(function () {
+  var road = document.querySelector('.road');
+  if (!road) return;
+
+  var lane = document.getElementById('lane');
+  var travelled = document.getElementById('travelled');
+  var rig = document.getElementById('rig');
+  var halo = document.getElementById('righalo');
+  var len = lane.getTotalLength();
+
+  travelled.style.strokeDasharray = len;
+  travelled.style.strokeDashoffset = len;
+
+  var queued = false;
+  function draw() {
+    queued = false;
+    var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    // A page shorter than the window is always "finished"
+    var progress = scrollable > 0 ? Math.min(Math.max(window.scrollY / scrollable, 0), 1) : 1;
+
+    travelled.style.strokeDashoffset = len * (1 - progress);
+
+    var at = lane.getPointAtLength(len * progress);
+    rig.setAttribute('cx', at.x); rig.setAttribute('cy', at.y);
+    halo.setAttribute('cx', at.x); halo.setAttribute('cy', at.y);
+  }
+
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(draw);
+  }
+
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  draw();
+})();
+
 
 /* Motion is opt-in: the class is only added once the script runs, so a page
    without JavaScript shows everything already in place rather than blank. */
