@@ -317,11 +317,24 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 .drawn .map-route:nth-of-type(3){animation-delay:.36s}
 .drawn .map-route:nth-of-type(4){animation-delay:.54s}
 @keyframes draw{to{stroke-dashoffset:0}}
+/* The destinations breathe gently and out of step with one another, so the
+   map reads as live rather than as four identical dots. */
 .map-node{fill:#fff}
+.drawn .map-node{animation:twinkle 3.4s ease-in-out infinite}
+.drawn .map-node.n2{animation-delay:.85s}
+.drawn .map-node.n3{animation-delay:1.7s}
+.drawn .map-node.n4{animation-delay:2.55s}
+@keyframes twinkle{0%,100%{opacity:.78}50%{opacity:1}}
+
+/* The port is the one thing on this map everything else hangs off */
 .map-port{fill:var(--red)}
+.map-port-core{fill:#fff}
+.map-port-ring{fill:none;stroke:var(--red);stroke-width:2.5;opacity:.5}
+.map-label.map-port-name{font-size:18px;letter-spacing:.14em}
 .map-pulse{fill:var(--red);opacity:.35}
 .drawn .map-pulse{animation:pulse 2.6s ease-out infinite}
-@keyframes pulse{0%{r:9;opacity:.5}70%{r:30;opacity:0}100%{r:30;opacity:0}}
+
+@keyframes pulse{0%{r:12;opacity:.5}70%{r:40;opacity:0}100%{r:40;opacity:0}}
 .map-label{font-family:var(--label);text-transform:uppercase;letter-spacing:.12em;
   font-size:15px;fill:#fff}
 .map-sub{font-family:'Archivo',sans-serif;font-size:12.5px;fill:#8E9296;
@@ -354,7 +367,7 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
   .js-motion .reveal{opacity:1;transform:none}
   .ticker .run{animation:none}
   .drawn .map-route{animation:none;stroke-dashoffset:0}
-  .drawn .map-pulse{animation:none}
+  .drawn .map-pulse,.drawn .map-node{animation:none}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -515,6 +528,26 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
     <div class="mapwrap reveal" id="corridormap">
       <svg viewBox="0 0 1000 520" role="img"
            aria-label="Schematic map of the East African corridors served, running inland from the port of Dar es Salaam">
+        <defs>
+          <!-- A real blur rather than a stack of faint rings: the shape is
+               blurred, doubled to deepen it, then the crisp marker laid back
+               on top so only the halo is soft. -->
+          <filter id="nodeGlow" x="-200%" y="-200%" width="500%" height="500%">
+            <feGaussianBlur stdDeviation="5" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/><feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="portGlow" x="-250%" y="-250%" width="600%" height="600%">
+            <feGaussianBlur stdDeviation="9" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
         <rect class="map-sea" x="0" y="0" width="1000" height="520"/>
 
         <!-- the inland mass, drawn loosely: this is a schematic, not a survey -->
@@ -922,21 +955,25 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
         <path class="map-route" d="M790,300 C670,360 560,414 424,436"/>
 
         <!-- the port -->
-        <circle class="map-pulse" cx="790" cy="300" r="9"/>
-        <circle class="map-port" cx="790" cy="300" r="9"/>
-        <text class="map-label" x="790" y="272" text-anchor="middle">Dar es Salaam</text>
-        <text class="map-sub map-label" x="790" y="345" text-anchor="middle"
+        <circle class="map-pulse" cx="790" cy="300" r="12"/>
+        <g filter="url(#portGlow)">
+          <circle class="map-port-ring" cx="790" cy="300" r="20"/>
+          <circle class="map-port" cx="790" cy="300" r="12"/>
+          <circle class="map-port-core" cx="790" cy="300" r="4.5"/>
+        </g>
+        <text class="map-label map-port-name" x="790" y="262" text-anchor="middle">Dar es Salaam</text>
+        <text class="map-sub map-label" x="790" y="352" text-anchor="middle"
               style="font-size:12.5px;fill:#8E9296;letter-spacing:0;text-transform:none">
           Port of entry</text>
 
         <!-- inland destinations -->
-        <circle class="map-node" cx="430" cy="196" r="6"/>
+        <circle class="map-node n1" cx="430" cy="196" r="7" filter="url(#nodeGlow)"/>
         <text class="map-label" x="410" y="190" text-anchor="end">Uganda</text>
-        <circle class="map-node" cx="420" cy="342" r="6"/>
+        <circle class="map-node n2" cx="420" cy="342" r="7" filter="url(#nodeGlow)"/>
         <text class="map-label" x="400" y="336" text-anchor="end">Burundi</text>
-        <circle class="map-node" cx="392" cy="112" r="6"/>
+        <circle class="map-node n3" cx="392" cy="112" r="7" filter="url(#nodeGlow)"/>
         <text class="map-label" x="372" y="106" text-anchor="end">Kenya</text>
-        <circle class="map-node" cx="424" cy="436" r="6"/>
+        <circle class="map-node n4" cx="424" cy="436" r="7" filter="url(#nodeGlow)"/>
         <text class="map-label" x="404" y="430" text-anchor="end">Rwanda</text>
 
         <text class="map-country" x="640" y="440">Tanzania</text>
