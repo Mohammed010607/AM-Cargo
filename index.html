@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AM Cargo</title>
 <meta name="description" content="Cross-border container haulage across East Africa. A fleet of 155 trucks moving cargo on schedule, documented end to end.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Saira+Stencil+One&display=swap">
@@ -361,6 +363,38 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 
 /* Below this the page margin is too narrow to give the line its own room */
 @media(max-width:1260px){.road{display:none}}
+/* ---- how it works --------------------------------------------------------
+   Four stops on one line rather than four cards. The standards band further
+   down already counts 01 to 04, and two numbered sets would read as one
+   idea said twice.                                                        */
+.journey{position:relative;display:grid;gap:26px;margin-top:10px;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.journey::before{content:"";position:absolute;left:8%;right:8%;top:13px;height:2px;
+  background:repeating-linear-gradient(90deg,var(--silver) 0 10px,transparent 10px 20px)}
+@media(max-width:820px){.journey::before{display:none}}
+.stop{position:relative;padding-top:44px}
+.stop .dot{position:absolute;top:5px;left:0;width:18px;height:18px;border-radius:var(--r-pill);
+  background:var(--red);box-shadow:0 0 0 5px var(--white),0 6px 16px -6px rgba(210,16,30,.8)}
+.stop h3{font-size:19px;margin:0 0 6px;font-weight:600;letter-spacing:-.01em}
+.stop .w{font-family:var(--label);text-transform:uppercase;letter-spacing:.15em;
+  font-size:11.5px;color:var(--red);margin:0 0 4px}
+.stop p{margin:0;color:var(--grey);font-size:14.5px;line-height:1.6}
+
+/* ---- the opening, arriving in order --------------------------------------
+   Only for people who have not asked for less movement. Without the query the
+   elements keep their ordinary styles, so the hero is simply there.        */
+@media(prefers-reduced-motion:no-preference){
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .hero .kicker{animation:rise .55s .05s both cubic-bezier(.2,.7,.3,1)}
+  .hero h1{animation:rise .65s .18s both cubic-bezier(.2,.7,.3,1)}
+  .hero p{animation:rise .65s .34s both cubic-bezier(.2,.7,.3,1)}
+  .hero .acts{animation:rise .65s .48s both cubic-bezier(.2,.7,.3,1)}
+
+  /* A push so slow it is felt rather than seen */
+  @keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.09)}}
+  .hero video{animation:heroZoom 28s 1s ease-out forwards}
+}
+
 @media(prefers-reduced-motion:reduce){.road{display:none}}
 
 @media(prefers-reduced-motion:reduce){
@@ -403,6 +437,7 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
     <a class="logo" href="#top"><i></i><b>AM Cargo</b></a>
     <nav id="nav">
       <a href="#services">Services</a>
+      <a href="#process">Process</a>
       <a href="#routes">Routes</a>
       <a href="#fleet">Fleet</a>
       <a href="#standards">Standards</a>
@@ -510,6 +545,49 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
              trailers available when your own fleet is stretched.</p>
         </div>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------- how it works -->
+<section class="band" id="process">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">How it works</p>
+      <h2 class="sec">From the quayside to your yard.</h2>
+      <p class="lede">Four stages, one company. Nobody hands your container to a
+         subcontractor at the border and stops answering the phone.</p>
+    </div>
+
+    <div class="journey reveal">
+      <div class="stop">
+        <span class="dot"></span>
+        <p class="w">Stage one</p>
+        <h3>Collect</h3>
+        <p>We take the container off the terminal and out through the gate, with
+           the release and the weighbridge done before the truck moves.</p>
+      </div>
+      <div class="stop">
+        <span class="dot"></span>
+        <p class="w">Stage two</p>
+        <h3>Clear</h3>
+        <p>Transit documents raised and the load sealed in bond, so the paperwork
+           travels with the truck rather than chasing it.</p>
+      </div>
+      <div class="stop">
+        <span class="dot"></span>
+        <p class="w">Stage three</p>
+        <h3>Cross</h3>
+        <p>Through the border post and onto the inland leg. You hear that it has
+           crossed from us, not from asking.</p>
+      </div>
+      <div class="stop">
+        <span class="dot"></span>
+        <p class="w">Stage four</p>
+        <h3>Deliver</h3>
+        <p>Offloaded at the consignee, the empty returned, and the invoice raised
+           against the price agreed at the start.</p>
+      </div>
     </div>
   </div>
 </section>
