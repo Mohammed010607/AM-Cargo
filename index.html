@@ -270,6 +270,84 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
   .logo b{font-size:18px}
 }
 
+/* ---- freight board ticker ------------------------------------------------
+   Borrowed from the departure boards these corridors actually run on. Two
+   identical runs of the same list slide as one, so the loop has no seam.   */
+.ticker{background:var(--ink-2);border-top:1px solid #24262a;
+  border-bottom:1px solid #24262a;overflow:hidden;padding:11px 0}
+.ticker .run{display:flex;width:max-content;gap:0;
+  animation:slide 46s linear infinite}
+.ticker:hover .run{animation-play-state:paused}
+.ticker .set{display:flex;gap:0;flex:none}
+.ticker span{font-family:var(--label);text-transform:uppercase;letter-spacing:.11em;
+  font-size:13px;color:#9AA0A6;white-space:nowrap;padding:0 26px;
+  display:inline-flex;align-items:center;gap:12px}
+.ticker span::after{content:"";width:5px;height:5px;border-radius:var(--r-pill);
+  background:var(--red);opacity:.75}
+.ticker b{color:#fff;font-weight:600}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---- the figures, stated once and stated large -------------------------- */
+.figs{background:var(--ink);color:#fff;border-top:3px solid var(--red);
+  padding:clamp(40px,5vw,64px) 0}
+.figs .wrap{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.fig{background:var(--ink-2);border:1px solid #24262a;border-radius:var(--r);
+  padding:26px 28px;box-shadow:var(--lift-dark);
+  transition:transform .22s cubic-bezier(.2,.7,.3,1),border-color .22s}
+.fig:hover{transform:translateY(-5px);border-color:var(--red)}
+.fig .n{font-size:clamp(46px,6vw,68px);line-height:1;font-weight:700;
+  letter-spacing:-.035em;font-variant-numeric:tabular-nums;margin:0}
+.fig .n .u{font-size:.42em;letter-spacing:0;margin-left:4px;color:var(--red);
+  font-weight:600;vertical-align:.5em}
+.fig .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.15em;
+  font-size:12.5px;color:var(--grey-2);margin:12px 0 0}
+.fig .s{margin:5px 0 0;font-size:14px;color:#A9ADB2;line-height:1.5}
+
+/* ---- the corridor map --------------------------------------------------- */
+.mapwrap{position:relative;border-radius:var(--r-lg);overflow:hidden;
+  background:var(--ink);box-shadow:var(--lift-lg);border:1px solid #24262a}
+.mapwrap svg{display:block;width:100%;height:auto}
+.map-grid circle{fill:#242629}
+.map-sea{fill:#101215}
+.map-land{fill:#17181A;stroke:#26282B;stroke-width:1.5}
+.map-route{fill:none;stroke:var(--red);stroke-width:3;stroke-linecap:round;
+  stroke-dasharray:var(--len,0);stroke-dashoffset:var(--len,0)}
+.drawn .map-route{animation:draw 1.5s cubic-bezier(.4,0,.2,1) forwards}
+.drawn .map-route:nth-of-type(2){animation-delay:.18s}
+.drawn .map-route:nth-of-type(3){animation-delay:.36s}
+.drawn .map-route:nth-of-type(4){animation-delay:.54s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.map-node{fill:#fff}
+.map-port{fill:var(--red)}
+.map-pulse{fill:var(--red);opacity:.35}
+.drawn .map-pulse{animation:pulse 2.6s ease-out infinite}
+@keyframes pulse{0%{r:9;opacity:.5}70%{r:30;opacity:0}100%{r:30;opacity:0}}
+.map-label{font-family:var(--label);text-transform:uppercase;letter-spacing:.12em;
+  font-size:15px;fill:#fff}
+.map-sub{font-family:'Archivo',sans-serif;font-size:12.5px;fill:#8E9296;
+  letter-spacing:0;text-transform:none}
+.map-country{font-family:'Archivo',sans-serif;font-size:13px;fill:#4A4D52;
+  letter-spacing:.08em;text-transform:uppercase}
+.map-legend{position:absolute;left:22px;bottom:20px;display:flex;gap:18px;
+  flex-wrap:wrap;font-family:var(--label);text-transform:uppercase;
+  letter-spacing:.12em;font-size:12px;color:#9AA0A6}
+.map-legend i{display:inline-block;width:9px;height:9px;border-radius:var(--r-pill);
+  background:var(--red);margin-right:7px;vertical-align:0}
+@media(max-width:700px){.map-legend{position:static;padding:0 22px 20px}}
+
+/* ---- sections arriving as you reach them --------------------------------
+   Visible by default. Only a browser that runs the script and has not asked
+   for less motion ever sees them move, so the page is never blank.        */
+.js-motion .reveal{opacity:0;transform:translateY(22px)}
+.js-motion .reveal.in{opacity:1;transform:none;
+  transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1)}
+@media(prefers-reduced-motion:reduce){
+  .js-motion .reveal{opacity:1;transform:none}
+  .ticker .run{animation:none}
+  .drawn .map-route{animation:none;stroke-dashoffset:0}
+  .drawn .map-pulse{animation:none}
+}
+
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .hero video{display:none}
@@ -325,14 +403,34 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
   </div>
 </section>
 
-<div class="strip">
-  <div class="wrap">
-    <div class="cell"><p class="k">Fleet</p><p class="v">155 trucks</p></div>
-    <div class="cell"><p class="k">Coverage</p><p class="v">Across East Africa</p></div>
-    <div class="cell"><p class="k">Containers</p><p class="v">20&#39; and 40&#39;</p></div>
-    <div class="cell"><p class="k">Payload</p><p class="v">Up to 32 tonnes per load</p></div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="run">
+    <div class="set"><span>Dar es Salaam <b>&rarr;</b> Kigali</span><span>Dar es Salaam <b>&rarr;</b> Bujumbura</span><span>Port collection <b>&rarr;</b> Inland delivery</span><span>Dar es Salaam <b>&rarr;</b> Kampala</span><span>20&#39; and 40&#39; <b>&rarr;</b> Up to 32 tonnes</span><span>Bonded transit <b>&rarr;</b> Cleared at the border</span></div>
+    <div class="set"><span>Dar es Salaam <b>&rarr;</b> Kigali</span><span>Dar es Salaam <b>&rarr;</b> Bujumbura</span><span>Port collection <b>&rarr;</b> Inland delivery</span><span>Dar es Salaam <b>&rarr;</b> Kampala</span><span>20&#39; and 40&#39; <b>&rarr;</b> Up to 32 tonnes</span><span>Bonded transit <b>&rarr;</b> Cleared at the border</span></div>
   </div>
 </div>
+
+<section class="figs">
+  <div class="wrap">
+    <div class="fig reveal">
+      <p class="n"><span class="count" data-to="155">155</span></p>
+      <p class="k">Trucks</p>
+      <p class="s">Prime movers on the road across the region.</p>
+    </div>
+    <div class="fig reveal">
+      <p class="n"><span class="count" data-to="32">32</span><span class="u">t</span></p>
+      <p class="k">Per load</p>
+      <p class="s">Payload carried on a single trailer.</p>
+    </div>
+    <div class="fig reveal">
+      <p class="n">20<span class="u">&#39;</span> 40<span class="u">&#39;</span></p>
+      <p class="k">Containers</p>
+      <p class="s">Skeletal trailers for either size, loaded or empty.</p>
+    </div>
+  </div>
+</section>
+
 
 <!-- -------------------------------------------------------------- services -->
 <section class="band" id="services">
@@ -345,7 +443,7 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
          yard, so there is never a question of who is responsible for it.</p>
     </div>
 
-    <div class="cards lead">
+    <div class="cards lead reveal">
       <article class="card">
         <div class="shot">
           <img src="media/road-haul.jpg" alt="Articulated truck hauling a forty foot container on the highway" loading="lazy">
@@ -392,44 +490,452 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
     <div class="head">
       <p class="eyebrow">Where we run</p>
       <h2 class="sec">One network across East Africa.</h2>
-      <p class="lede">We work the coastal ports, the inland border posts and the roads
-         between them. Wherever the cargo lands and wherever it is going, the same
-         company carries it the whole way.</p>
+      <p class="lede">Everything starts at the quayside and ends at a yard somewhere
+         inland. We work the ports, the border posts and the roads between them, and
+         the same company carries the load the whole way.</p>
     </div>
 
-    <div class="routes">
-      <a class="route" href="#contact">
-        <img src="media/container-vans.jpg" alt="Container trucks working a port terminal" loading="lazy">
-        <div class="in">
-          <span class="k">Coast</span>
-          <h3>Ports and terminals</h3>
-          <p>Collection off the quayside and out through the gate.</p>
-        </div>
-      </a>
-      <a class="route" href="#contact">
-        <img src="media/freight-open-road.jpg" alt="Loaded trailer running the inland highway" loading="lazy">
-        <div class="in">
-          <span class="k">In transit</span>
-          <h3>Cross-border transit</h3>
-          <p>Bonded cargo through the region&#39;s border posts.</p>
-        </div>
-      </a>
-      <a class="route" href="#contact">
-        <img src="media/truck-at-depot.jpg" alt="Container on a trailer at an inland depot" loading="lazy">
-        <div class="in">
-          <span class="k">Inland</span>
-          <h3>Delivery inland</h3>
-          <p>Onward to yards and depots across the interior.</p>
-        </div>
-      </a>
+    <div class="mapwrap reveal" id="corridormap">
+      <svg viewBox="0 0 1000 520" role="img"
+           aria-label="Schematic map of the East African corridors served, running inland from the port of Dar es Salaam">
+        <rect class="map-sea" x="0" y="0" width="1000" height="520"/>
+
+        <!-- the inland mass, drawn loosely: this is a schematic, not a survey -->
+        <path class="map-land" d="M0,40 L700,40 Q790,120 812,230 Q828,320 795,410
+                                  Q770,470 720,490 L0,490 Z"/>
+
+        <g class="map-grid" opacity=".55">
+          <circle cx="120" cy="126" r="1.6"/>
+          <circle cx="150" cy="126" r="1.6"/>
+          <circle cx="180" cy="126" r="1.6"/>
+          <circle cx="210" cy="126" r="1.6"/>
+          <circle cx="240" cy="126" r="1.6"/>
+          <circle cx="270" cy="126" r="1.6"/>
+          <circle cx="300" cy="126" r="1.6"/>
+          <circle cx="330" cy="126" r="1.6"/>
+          <circle cx="360" cy="126" r="1.6"/>
+          <circle cx="390" cy="126" r="1.6"/>
+          <circle cx="420" cy="126" r="1.6"/>
+          <circle cx="450" cy="126" r="1.6"/>
+          <circle cx="480" cy="126" r="1.6"/>
+          <circle cx="510" cy="126" r="1.6"/>
+          <circle cx="540" cy="126" r="1.6"/>
+          <circle cx="570" cy="126" r="1.6"/>
+          <circle cx="600" cy="126" r="1.6"/>
+          <circle cx="630" cy="126" r="1.6"/>
+          <circle cx="660" cy="126" r="1.6"/>
+          <circle cx="690" cy="126" r="1.6"/>
+          <circle cx="720" cy="126" r="1.6"/>
+          <circle cx="750" cy="126" r="1.6"/>
+          <circle cx="780" cy="126" r="1.6"/>
+          <circle cx="120" cy="147" r="1.6"/>
+          <circle cx="150" cy="147" r="1.6"/>
+          <circle cx="180" cy="147" r="1.6"/>
+          <circle cx="210" cy="147" r="1.6"/>
+          <circle cx="240" cy="147" r="1.6"/>
+          <circle cx="270" cy="147" r="1.6"/>
+          <circle cx="300" cy="147" r="1.6"/>
+          <circle cx="330" cy="147" r="1.6"/>
+          <circle cx="360" cy="147" r="1.6"/>
+          <circle cx="390" cy="147" r="1.6"/>
+          <circle cx="420" cy="147" r="1.6"/>
+          <circle cx="450" cy="147" r="1.6"/>
+          <circle cx="480" cy="147" r="1.6"/>
+          <circle cx="510" cy="147" r="1.6"/>
+          <circle cx="540" cy="147" r="1.6"/>
+          <circle cx="570" cy="147" r="1.6"/>
+          <circle cx="600" cy="147" r="1.6"/>
+          <circle cx="630" cy="147" r="1.6"/>
+          <circle cx="660" cy="147" r="1.6"/>
+          <circle cx="690" cy="147" r="1.6"/>
+          <circle cx="720" cy="147" r="1.6"/>
+          <circle cx="750" cy="147" r="1.6"/>
+          <circle cx="780" cy="147" r="1.6"/>
+          <circle cx="120" cy="168" r="1.6"/>
+          <circle cx="150" cy="168" r="1.6"/>
+          <circle cx="180" cy="168" r="1.6"/>
+          <circle cx="210" cy="168" r="1.6"/>
+          <circle cx="240" cy="168" r="1.6"/>
+          <circle cx="270" cy="168" r="1.6"/>
+          <circle cx="300" cy="168" r="1.6"/>
+          <circle cx="330" cy="168" r="1.6"/>
+          <circle cx="360" cy="168" r="1.6"/>
+          <circle cx="390" cy="168" r="1.6"/>
+          <circle cx="420" cy="168" r="1.6"/>
+          <circle cx="450" cy="168" r="1.6"/>
+          <circle cx="480" cy="168" r="1.6"/>
+          <circle cx="510" cy="168" r="1.6"/>
+          <circle cx="540" cy="168" r="1.6"/>
+          <circle cx="570" cy="168" r="1.6"/>
+          <circle cx="600" cy="168" r="1.6"/>
+          <circle cx="630" cy="168" r="1.6"/>
+          <circle cx="660" cy="168" r="1.6"/>
+          <circle cx="690" cy="168" r="1.6"/>
+          <circle cx="720" cy="168" r="1.6"/>
+          <circle cx="750" cy="168" r="1.6"/>
+          <circle cx="780" cy="168" r="1.6"/>
+          <circle cx="120" cy="189" r="1.6"/>
+          <circle cx="150" cy="189" r="1.6"/>
+          <circle cx="180" cy="189" r="1.6"/>
+          <circle cx="210" cy="189" r="1.6"/>
+          <circle cx="240" cy="189" r="1.6"/>
+          <circle cx="270" cy="189" r="1.6"/>
+          <circle cx="300" cy="189" r="1.6"/>
+          <circle cx="330" cy="189" r="1.6"/>
+          <circle cx="360" cy="189" r="1.6"/>
+          <circle cx="390" cy="189" r="1.6"/>
+          <circle cx="420" cy="189" r="1.6"/>
+          <circle cx="450" cy="189" r="1.6"/>
+          <circle cx="480" cy="189" r="1.6"/>
+          <circle cx="510" cy="189" r="1.6"/>
+          <circle cx="540" cy="189" r="1.6"/>
+          <circle cx="570" cy="189" r="1.6"/>
+          <circle cx="600" cy="189" r="1.6"/>
+          <circle cx="630" cy="189" r="1.6"/>
+          <circle cx="660" cy="189" r="1.6"/>
+          <circle cx="690" cy="189" r="1.6"/>
+          <circle cx="720" cy="189" r="1.6"/>
+          <circle cx="750" cy="189" r="1.6"/>
+          <circle cx="780" cy="189" r="1.6"/>
+          <circle cx="120" cy="210" r="1.6"/>
+          <circle cx="150" cy="210" r="1.6"/>
+          <circle cx="180" cy="210" r="1.6"/>
+          <circle cx="210" cy="210" r="1.6"/>
+          <circle cx="240" cy="210" r="1.6"/>
+          <circle cx="270" cy="210" r="1.6"/>
+          <circle cx="300" cy="210" r="1.6"/>
+          <circle cx="330" cy="210" r="1.6"/>
+          <circle cx="360" cy="210" r="1.6"/>
+          <circle cx="390" cy="210" r="1.6"/>
+          <circle cx="420" cy="210" r="1.6"/>
+          <circle cx="450" cy="210" r="1.6"/>
+          <circle cx="480" cy="210" r="1.6"/>
+          <circle cx="510" cy="210" r="1.6"/>
+          <circle cx="540" cy="210" r="1.6"/>
+          <circle cx="570" cy="210" r="1.6"/>
+          <circle cx="600" cy="210" r="1.6"/>
+          <circle cx="630" cy="210" r="1.6"/>
+          <circle cx="660" cy="210" r="1.6"/>
+          <circle cx="690" cy="210" r="1.6"/>
+          <circle cx="720" cy="210" r="1.6"/>
+          <circle cx="750" cy="210" r="1.6"/>
+          <circle cx="780" cy="210" r="1.6"/>
+          <circle cx="120" cy="231" r="1.6"/>
+          <circle cx="150" cy="231" r="1.6"/>
+          <circle cx="180" cy="231" r="1.6"/>
+          <circle cx="210" cy="231" r="1.6"/>
+          <circle cx="240" cy="231" r="1.6"/>
+          <circle cx="270" cy="231" r="1.6"/>
+          <circle cx="300" cy="231" r="1.6"/>
+          <circle cx="330" cy="231" r="1.6"/>
+          <circle cx="360" cy="231" r="1.6"/>
+          <circle cx="390" cy="231" r="1.6"/>
+          <circle cx="420" cy="231" r="1.6"/>
+          <circle cx="450" cy="231" r="1.6"/>
+          <circle cx="480" cy="231" r="1.6"/>
+          <circle cx="510" cy="231" r="1.6"/>
+          <circle cx="540" cy="231" r="1.6"/>
+          <circle cx="570" cy="231" r="1.6"/>
+          <circle cx="600" cy="231" r="1.6"/>
+          <circle cx="630" cy="231" r="1.6"/>
+          <circle cx="660" cy="231" r="1.6"/>
+          <circle cx="690" cy="231" r="1.6"/>
+          <circle cx="720" cy="231" r="1.6"/>
+          <circle cx="750" cy="231" r="1.6"/>
+          <circle cx="780" cy="231" r="1.6"/>
+          <circle cx="120" cy="252" r="1.6"/>
+          <circle cx="150" cy="252" r="1.6"/>
+          <circle cx="180" cy="252" r="1.6"/>
+          <circle cx="210" cy="252" r="1.6"/>
+          <circle cx="240" cy="252" r="1.6"/>
+          <circle cx="270" cy="252" r="1.6"/>
+          <circle cx="300" cy="252" r="1.6"/>
+          <circle cx="330" cy="252" r="1.6"/>
+          <circle cx="360" cy="252" r="1.6"/>
+          <circle cx="390" cy="252" r="1.6"/>
+          <circle cx="420" cy="252" r="1.6"/>
+          <circle cx="450" cy="252" r="1.6"/>
+          <circle cx="480" cy="252" r="1.6"/>
+          <circle cx="510" cy="252" r="1.6"/>
+          <circle cx="540" cy="252" r="1.6"/>
+          <circle cx="570" cy="252" r="1.6"/>
+          <circle cx="600" cy="252" r="1.6"/>
+          <circle cx="630" cy="252" r="1.6"/>
+          <circle cx="660" cy="252" r="1.6"/>
+          <circle cx="690" cy="252" r="1.6"/>
+          <circle cx="720" cy="252" r="1.6"/>
+          <circle cx="750" cy="252" r="1.6"/>
+          <circle cx="780" cy="252" r="1.6"/>
+          <circle cx="120" cy="273" r="1.6"/>
+          <circle cx="150" cy="273" r="1.6"/>
+          <circle cx="180" cy="273" r="1.6"/>
+          <circle cx="210" cy="273" r="1.6"/>
+          <circle cx="240" cy="273" r="1.6"/>
+          <circle cx="270" cy="273" r="1.6"/>
+          <circle cx="300" cy="273" r="1.6"/>
+          <circle cx="330" cy="273" r="1.6"/>
+          <circle cx="360" cy="273" r="1.6"/>
+          <circle cx="390" cy="273" r="1.6"/>
+          <circle cx="420" cy="273" r="1.6"/>
+          <circle cx="450" cy="273" r="1.6"/>
+          <circle cx="480" cy="273" r="1.6"/>
+          <circle cx="510" cy="273" r="1.6"/>
+          <circle cx="540" cy="273" r="1.6"/>
+          <circle cx="570" cy="273" r="1.6"/>
+          <circle cx="600" cy="273" r="1.6"/>
+          <circle cx="630" cy="273" r="1.6"/>
+          <circle cx="660" cy="273" r="1.6"/>
+          <circle cx="690" cy="273" r="1.6"/>
+          <circle cx="720" cy="273" r="1.6"/>
+          <circle cx="750" cy="273" r="1.6"/>
+          <circle cx="780" cy="273" r="1.6"/>
+          <circle cx="120" cy="294" r="1.6"/>
+          <circle cx="150" cy="294" r="1.6"/>
+          <circle cx="180" cy="294" r="1.6"/>
+          <circle cx="210" cy="294" r="1.6"/>
+          <circle cx="240" cy="294" r="1.6"/>
+          <circle cx="270" cy="294" r="1.6"/>
+          <circle cx="300" cy="294" r="1.6"/>
+          <circle cx="330" cy="294" r="1.6"/>
+          <circle cx="360" cy="294" r="1.6"/>
+          <circle cx="390" cy="294" r="1.6"/>
+          <circle cx="420" cy="294" r="1.6"/>
+          <circle cx="450" cy="294" r="1.6"/>
+          <circle cx="480" cy="294" r="1.6"/>
+          <circle cx="510" cy="294" r="1.6"/>
+          <circle cx="540" cy="294" r="1.6"/>
+          <circle cx="570" cy="294" r="1.6"/>
+          <circle cx="600" cy="294" r="1.6"/>
+          <circle cx="630" cy="294" r="1.6"/>
+          <circle cx="660" cy="294" r="1.6"/>
+          <circle cx="690" cy="294" r="1.6"/>
+          <circle cx="720" cy="294" r="1.6"/>
+          <circle cx="750" cy="294" r="1.6"/>
+          <circle cx="780" cy="294" r="1.6"/>
+          <circle cx="120" cy="315" r="1.6"/>
+          <circle cx="150" cy="315" r="1.6"/>
+          <circle cx="180" cy="315" r="1.6"/>
+          <circle cx="210" cy="315" r="1.6"/>
+          <circle cx="240" cy="315" r="1.6"/>
+          <circle cx="270" cy="315" r="1.6"/>
+          <circle cx="300" cy="315" r="1.6"/>
+          <circle cx="330" cy="315" r="1.6"/>
+          <circle cx="360" cy="315" r="1.6"/>
+          <circle cx="390" cy="315" r="1.6"/>
+          <circle cx="420" cy="315" r="1.6"/>
+          <circle cx="450" cy="315" r="1.6"/>
+          <circle cx="480" cy="315" r="1.6"/>
+          <circle cx="510" cy="315" r="1.6"/>
+          <circle cx="540" cy="315" r="1.6"/>
+          <circle cx="570" cy="315" r="1.6"/>
+          <circle cx="600" cy="315" r="1.6"/>
+          <circle cx="630" cy="315" r="1.6"/>
+          <circle cx="660" cy="315" r="1.6"/>
+          <circle cx="690" cy="315" r="1.6"/>
+          <circle cx="720" cy="315" r="1.6"/>
+          <circle cx="750" cy="315" r="1.6"/>
+          <circle cx="780" cy="315" r="1.6"/>
+          <circle cx="120" cy="336" r="1.6"/>
+          <circle cx="150" cy="336" r="1.6"/>
+          <circle cx="180" cy="336" r="1.6"/>
+          <circle cx="210" cy="336" r="1.6"/>
+          <circle cx="240" cy="336" r="1.6"/>
+          <circle cx="270" cy="336" r="1.6"/>
+          <circle cx="300" cy="336" r="1.6"/>
+          <circle cx="330" cy="336" r="1.6"/>
+          <circle cx="360" cy="336" r="1.6"/>
+          <circle cx="390" cy="336" r="1.6"/>
+          <circle cx="420" cy="336" r="1.6"/>
+          <circle cx="450" cy="336" r="1.6"/>
+          <circle cx="480" cy="336" r="1.6"/>
+          <circle cx="510" cy="336" r="1.6"/>
+          <circle cx="540" cy="336" r="1.6"/>
+          <circle cx="570" cy="336" r="1.6"/>
+          <circle cx="600" cy="336" r="1.6"/>
+          <circle cx="630" cy="336" r="1.6"/>
+          <circle cx="660" cy="336" r="1.6"/>
+          <circle cx="690" cy="336" r="1.6"/>
+          <circle cx="720" cy="336" r="1.6"/>
+          <circle cx="750" cy="336" r="1.6"/>
+          <circle cx="780" cy="336" r="1.6"/>
+          <circle cx="120" cy="357" r="1.6"/>
+          <circle cx="150" cy="357" r="1.6"/>
+          <circle cx="180" cy="357" r="1.6"/>
+          <circle cx="210" cy="357" r="1.6"/>
+          <circle cx="240" cy="357" r="1.6"/>
+          <circle cx="270" cy="357" r="1.6"/>
+          <circle cx="300" cy="357" r="1.6"/>
+          <circle cx="330" cy="357" r="1.6"/>
+          <circle cx="360" cy="357" r="1.6"/>
+          <circle cx="390" cy="357" r="1.6"/>
+          <circle cx="420" cy="357" r="1.6"/>
+          <circle cx="450" cy="357" r="1.6"/>
+          <circle cx="480" cy="357" r="1.6"/>
+          <circle cx="510" cy="357" r="1.6"/>
+          <circle cx="540" cy="357" r="1.6"/>
+          <circle cx="570" cy="357" r="1.6"/>
+          <circle cx="600" cy="357" r="1.6"/>
+          <circle cx="630" cy="357" r="1.6"/>
+          <circle cx="660" cy="357" r="1.6"/>
+          <circle cx="690" cy="357" r="1.6"/>
+          <circle cx="720" cy="357" r="1.6"/>
+          <circle cx="750" cy="357" r="1.6"/>
+          <circle cx="780" cy="357" r="1.6"/>
+          <circle cx="120" cy="378" r="1.6"/>
+          <circle cx="150" cy="378" r="1.6"/>
+          <circle cx="180" cy="378" r="1.6"/>
+          <circle cx="210" cy="378" r="1.6"/>
+          <circle cx="240" cy="378" r="1.6"/>
+          <circle cx="270" cy="378" r="1.6"/>
+          <circle cx="300" cy="378" r="1.6"/>
+          <circle cx="330" cy="378" r="1.6"/>
+          <circle cx="360" cy="378" r="1.6"/>
+          <circle cx="390" cy="378" r="1.6"/>
+          <circle cx="420" cy="378" r="1.6"/>
+          <circle cx="450" cy="378" r="1.6"/>
+          <circle cx="480" cy="378" r="1.6"/>
+          <circle cx="510" cy="378" r="1.6"/>
+          <circle cx="540" cy="378" r="1.6"/>
+          <circle cx="570" cy="378" r="1.6"/>
+          <circle cx="600" cy="378" r="1.6"/>
+          <circle cx="630" cy="378" r="1.6"/>
+          <circle cx="660" cy="378" r="1.6"/>
+          <circle cx="690" cy="378" r="1.6"/>
+          <circle cx="720" cy="378" r="1.6"/>
+          <circle cx="750" cy="378" r="1.6"/>
+          <circle cx="780" cy="378" r="1.6"/>
+          <circle cx="120" cy="399" r="1.6"/>
+          <circle cx="150" cy="399" r="1.6"/>
+          <circle cx="180" cy="399" r="1.6"/>
+          <circle cx="210" cy="399" r="1.6"/>
+          <circle cx="240" cy="399" r="1.6"/>
+          <circle cx="270" cy="399" r="1.6"/>
+          <circle cx="300" cy="399" r="1.6"/>
+          <circle cx="330" cy="399" r="1.6"/>
+          <circle cx="360" cy="399" r="1.6"/>
+          <circle cx="390" cy="399" r="1.6"/>
+          <circle cx="420" cy="399" r="1.6"/>
+          <circle cx="450" cy="399" r="1.6"/>
+          <circle cx="480" cy="399" r="1.6"/>
+          <circle cx="510" cy="399" r="1.6"/>
+          <circle cx="540" cy="399" r="1.6"/>
+          <circle cx="570" cy="399" r="1.6"/>
+          <circle cx="600" cy="399" r="1.6"/>
+          <circle cx="630" cy="399" r="1.6"/>
+          <circle cx="660" cy="399" r="1.6"/>
+          <circle cx="690" cy="399" r="1.6"/>
+          <circle cx="720" cy="399" r="1.6"/>
+          <circle cx="750" cy="399" r="1.6"/>
+          <circle cx="780" cy="399" r="1.6"/>
+          <circle cx="120" cy="420" r="1.6"/>
+          <circle cx="150" cy="420" r="1.6"/>
+          <circle cx="180" cy="420" r="1.6"/>
+          <circle cx="210" cy="420" r="1.6"/>
+          <circle cx="240" cy="420" r="1.6"/>
+          <circle cx="270" cy="420" r="1.6"/>
+          <circle cx="300" cy="420" r="1.6"/>
+          <circle cx="330" cy="420" r="1.6"/>
+          <circle cx="360" cy="420" r="1.6"/>
+          <circle cx="390" cy="420" r="1.6"/>
+          <circle cx="420" cy="420" r="1.6"/>
+          <circle cx="450" cy="420" r="1.6"/>
+          <circle cx="480" cy="420" r="1.6"/>
+          <circle cx="510" cy="420" r="1.6"/>
+          <circle cx="540" cy="420" r="1.6"/>
+          <circle cx="570" cy="420" r="1.6"/>
+          <circle cx="600" cy="420" r="1.6"/>
+          <circle cx="630" cy="420" r="1.6"/>
+          <circle cx="660" cy="420" r="1.6"/>
+          <circle cx="690" cy="420" r="1.6"/>
+          <circle cx="720" cy="420" r="1.6"/>
+          <circle cx="750" cy="420" r="1.6"/>
+          <circle cx="780" cy="420" r="1.6"/>
+          <circle cx="120" cy="441" r="1.6"/>
+          <circle cx="150" cy="441" r="1.6"/>
+          <circle cx="180" cy="441" r="1.6"/>
+          <circle cx="210" cy="441" r="1.6"/>
+          <circle cx="240" cy="441" r="1.6"/>
+          <circle cx="270" cy="441" r="1.6"/>
+          <circle cx="300" cy="441" r="1.6"/>
+          <circle cx="330" cy="441" r="1.6"/>
+          <circle cx="360" cy="441" r="1.6"/>
+          <circle cx="390" cy="441" r="1.6"/>
+          <circle cx="420" cy="441" r="1.6"/>
+          <circle cx="450" cy="441" r="1.6"/>
+          <circle cx="480" cy="441" r="1.6"/>
+          <circle cx="510" cy="441" r="1.6"/>
+          <circle cx="540" cy="441" r="1.6"/>
+          <circle cx="570" cy="441" r="1.6"/>
+          <circle cx="600" cy="441" r="1.6"/>
+          <circle cx="630" cy="441" r="1.6"/>
+          <circle cx="660" cy="441" r="1.6"/>
+          <circle cx="690" cy="441" r="1.6"/>
+          <circle cx="720" cy="441" r="1.6"/>
+          <circle cx="750" cy="441" r="1.6"/>
+          <circle cx="780" cy="441" r="1.6"/>
+          <circle cx="120" cy="462" r="1.6"/>
+          <circle cx="150" cy="462" r="1.6"/>
+          <circle cx="180" cy="462" r="1.6"/>
+          <circle cx="210" cy="462" r="1.6"/>
+          <circle cx="240" cy="462" r="1.6"/>
+          <circle cx="270" cy="462" r="1.6"/>
+          <circle cx="300" cy="462" r="1.6"/>
+          <circle cx="330" cy="462" r="1.6"/>
+          <circle cx="360" cy="462" r="1.6"/>
+          <circle cx="390" cy="462" r="1.6"/>
+          <circle cx="420" cy="462" r="1.6"/>
+          <circle cx="450" cy="462" r="1.6"/>
+          <circle cx="480" cy="462" r="1.6"/>
+          <circle cx="510" cy="462" r="1.6"/>
+          <circle cx="540" cy="462" r="1.6"/>
+          <circle cx="570" cy="462" r="1.6"/>
+          <circle cx="600" cy="462" r="1.6"/>
+          <circle cx="630" cy="462" r="1.6"/>
+          <circle cx="660" cy="462" r="1.6"/>
+          <circle cx="690" cy="462" r="1.6"/>
+          <circle cx="720" cy="462" r="1.6"/>
+          <circle cx="750" cy="462" r="1.6"/>
+          <circle cx="780" cy="462" r="1.6"/>
+        </g>
+
+        <!-- routes fan inland from the port -->
+        <path class="map-route" d="M790,300 C660,268 560,232 430,196"/>
+        <path class="map-route" d="M790,300 C665,310 560,326 420,342"/>
+        <path class="map-route" d="M790,300 C640,300 520,150 392,112"/>
+        <path class="map-route" d="M790,300 C670,360 560,414 424,436"/>
+
+        <!-- the port -->
+        <circle class="map-pulse" cx="790" cy="300" r="9"/>
+        <circle class="map-port" cx="790" cy="300" r="9"/>
+        <text class="map-label" x="790" y="272" text-anchor="middle">Dar es Salaam</text>
+        <text class="map-sub map-label" x="790" y="345" text-anchor="middle"
+              style="font-size:12.5px;fill:#8E9296;letter-spacing:0;text-transform:none">
+          Port of entry</text>
+
+        <!-- inland destinations -->
+        <circle class="map-node" cx="430" cy="196" r="6"/>
+        <text class="map-label" x="410" y="190" text-anchor="end">Uganda</text>
+        <circle class="map-node" cx="420" cy="342" r="6"/>
+        <text class="map-label" x="400" y="336" text-anchor="end">Burundi</text>
+        <circle class="map-node" cx="392" cy="112" r="6"/>
+        <text class="map-label" x="372" y="106" text-anchor="end">Kenya</text>
+        <circle class="map-node" cx="424" cy="436" r="6"/>
+        <text class="map-label" x="404" y="430" text-anchor="end">Rwanda</text>
+
+        <text class="map-country" x="640" y="440">Tanzania</text>
+        <text class="map-country" x="150" y="300">Eastern DR Congo</text>
+      </svg>
+      <div class="map-legend">
+        <span><i></i>Corridors worked regularly</span>
+        <span>Schematic &mdash; not to scale</span>
+      </div>
     </div>
-  </div>
 </section>
 
 <!-- ----------------------------------------------------------------- fleet -->
 <section class="band" id="fleet">
   <div class="wrap">
-    <div class="feature">
+    <div class="feature reveal">
       <div class="shot">
         <img src="media/fleet-line.jpg" alt="Line of heavy goods vehicles parked at a depot" loading="lazy">
         <span class="stamp">Our fleet</span>
@@ -460,7 +966,7 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
        load, nobody can find the receipt, nobody agrees what was settled. We close
        those gaps as a matter of routine.</p>
 
-    <div class="pledge">
+    <div class="pledge reveal">
       <div>
         <p class="n">01</p>
         <h4>One truck, one record</h4>
@@ -581,6 +1087,64 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* Motion is opt-in: the class is only added once the script runs, so a page
+   without JavaScript shows everything already in place rather than blank. */
+/* Each route is hidden by setting the dash pattern to its own exact length,
+   measured rather than guessed, so the line draws in cleanly end to end. */
+document.querySelectorAll('.map-route').forEach(function (path) {
+  var len = path.getTotalLength();
+  path.style.setProperty('--len', len);
+});
+
+var wantsMotion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (wantsMotion && 'IntersectionObserver' in window) {
+  document.documentElement.classList.add('js-motion');
+
+  var seen = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      if (e.target.id === 'corridormap') e.target.classList.add('drawn');
+      e.target.querySelectorAll('.count').forEach(countUp);
+      seen.unobserve(e.target);
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -60px 0px' });
+
+  var hidden = document.querySelectorAll('.reveal');
+  hidden.forEach(function (el) { seen.observe(el); });
+
+  /* A safety net, because "hidden until told otherwise" is a bad default.
+     If the observer never reports back - a browser that has it but does not
+     fire it, an extension, anything - the page would sit blank. After three
+     seconds everything is shown regardless, animation or not. */
+  setTimeout(function () {
+    hidden.forEach(function (el) {
+      if (el.classList.contains('in')) return;
+      el.classList.add('in');
+      if (el.id === 'corridormap') el.classList.add('drawn');
+      el.querySelectorAll('.count').forEach(countUp);
+    });
+  }, 3000);
+}
+
+/* Counts to the number already written in the markup, so the real figure is
+   in the page for anyone who never sees the animation. */
+function countUp(el) {
+  var to = parseInt(el.dataset.to, 10);
+  if (!to) return;
+  var started = null, ms = 1100;
+  function frame(now) {
+    if (!started) started = now;
+    var k = Math.min((now - started) / ms, 1);
+    el.textContent = k < 1 ? Math.round(to * (1 - Math.pow(1 - k, 3))) : to;
+    if (k < 1) requestAnimationFrame(frame);
+  }
+  // Deliberately not zeroed first. In a background tab the frame callback is
+  // throttled or never runs, and a fleet of 155 would sit there reading 0.
+  // Leaving the real figure in place means the worst case is no animation.
+  requestAnimationFrame(frame);
+}
 
 // menu on small screens
 var burger = document.getElementById('burger'), nav = document.getElementById('nav');
