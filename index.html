@@ -335,22 +335,18 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 .js-motion .reveal{opacity:0;transform:translateY(22px)}
 .js-motion .reveal.in{opacity:1;transform:none;
   transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1)}
-/* ---- the road ------------------------------------------------------------
-   A scroll indicator shaped like the thing the business does. The grey lane
-   is the whole page; the red is how far down it you are. Sits above the
-   content but takes no clicks.                                            */
+/* ---- scroll arrow --------------------------------------------------------
+   A single red line down the left with a head that points the way it is
+   going. It only runs beside the light half of the page, which is where the
+   reading actually happens.                                              */
 .road{position:fixed;left:8px;top:0;height:100vh;z-index:40;pointer-events:none;
-  opacity:.92}
+  opacity:0;transition:opacity .35s ease}
+.road.on{opacity:1}
 .road svg{height:100vh;width:auto;display:block;overflow:visible}
-.road .lane{fill:none;stroke:#9AA0A6;stroke-opacity:.32;stroke-width:7;
-  stroke-linecap:round}
-.road .travelled{fill:none;stroke:var(--red);stroke-width:7;stroke-linecap:round}
-.road .markings{fill:none;stroke:#fff;stroke-opacity:.55;stroke-width:1.6;
-  stroke-dasharray:6 10;stroke-linecap:round}
-.road .rig{fill:var(--red);stroke:#fff;stroke-width:2.5}
-.road .rig-halo{fill:var(--red);opacity:.22}
+.road .travelled{fill:none;stroke:var(--red);stroke-width:2.5;stroke-linecap:round}
+.road .head{fill:var(--red)}
 
-/* It would crowd a phone, and there is little page width to spare */
+/* Below this the page margin is too narrow to give the line its own room */
 @media(max-width:1200px){.road{display:none}}
 @media(prefers-reduced-motion:reduce){.road{display:none}}
 
@@ -382,15 +378,10 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 <body>
 
 <div class="road" aria-hidden="true">
-  <svg viewBox="0 0 32 900" preserveAspectRatio="xMidYMin meet">
-    <path id="lane" class="lane"
-          d="M16,6 C4,120 28,196 16,306 C4,416 28,492 16,602 C4,712 28,788 16,894"/>
-    <path class="travelled" id="travelled"
-          d="M16,6 C4,120 28,196 16,306 C4,416 28,492 16,602 C4,712 28,788 16,894"/>
-    <path class="markings"
-          d="M16,6 C4,120 28,196 16,306 C4,416 28,492 16,602 C4,712 28,788 16,894"/>
-    <circle class="rig-halo" id="righalo" cx="16" cy="6" r="11"/>
-    <circle class="rig" id="rig" cx="16" cy="6" r="5.5"/>
+  <svg viewBox="0 0 36 900" preserveAspectRatio="xMidYMin meet">
+    <path id="lane" fill="none" stroke="none" d="M18,4 C4,22 4,50 18,68 C32,86 32,114 18,131 C4,149 4,177 18,195 C32,213 32,241 18,259 C4,277 4,305 18,323 C32,340 32,368 18,386 C4,404 4,432 18,450 C32,468 32,496 18,514 C4,532 4,560 18,577 C32,595 32,623 18,641 C4,659 4,687 18,705 C32,723 32,751 18,769 C4,786 4,814 18,832 C32,850 32,878 18,896"/>
+    <path class="travelled" id="travelled" d="M18,4 C4,22 4,50 18,68 C32,86 32,114 18,131 C4,149 4,177 18,195 C32,213 32,241 18,259 C4,277 4,305 18,323 C32,340 32,368 18,386 C4,404 4,432 18,450 C32,468 32,496 18,514 C4,532 4,560 18,577 C32,595 32,623 18,641 C4,659 4,687 18,705 C32,723 32,751 18,769 C4,786 4,814 18,832 C32,850 32,878 18,896"/>
+    <polygon class="head" id="head" points="8,0 -5,-5.5 -5,5.5"/>
   </svg>
 </div>
 
@@ -1111,34 +1102,45 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-/* The red lane is drawn by moving its dash offset from "all hidden" to "none
-   hidden" in step with how far down the page you are, and the marker rides
-   the same path so it always sits exactly at the head of it. */
+/* The line tracks the light part of the page only: it starts filling where
+   the first white section begins and is full when the enquiry section has
+   finished. Outside that stretch it fades out rather than sitting at nought
+   over the dark bands. The head is placed by asking the path where it is at
+   that distance, and turned to face along it. */
 (function () {
   var road = document.querySelector('.road');
   if (!road) return;
 
   var lane = document.getElementById('lane');
   var travelled = document.getElementById('travelled');
-  var rig = document.getElementById('rig');
-  var halo = document.getElementById('righalo');
-  var len = lane.getTotalLength();
+  var head = document.getElementById('head');
+  var first = document.getElementById('services');
+  var last = document.getElementById('contact');
+  if (!first || !last) return;
 
+  var len = lane.getTotalLength();
   travelled.style.strokeDasharray = len;
-  travelled.style.strokeDashoffset = len;
 
   var queued = false;
   function draw() {
     queued = false;
-    var scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    // A page shorter than the window is always "finished"
-    var progress = scrollable > 0 ? Math.min(Math.max(window.scrollY / scrollable, 0), 1) : 1;
+
+    var top = first.getBoundingClientRect().top + window.scrollY;
+    var bottom = last.getBoundingClientRect().bottom + window.scrollY;
+    var span = (bottom - window.innerHeight) - top;
+
+    var progress = span > 0 ? (window.scrollY - top) / span : 1;
+    road.classList.toggle('on', progress >= -0.02 && progress <= 1.02);
+    progress = Math.min(Math.max(progress, 0), 1);
 
     travelled.style.strokeDashoffset = len * (1 - progress);
 
+    // A point just along from the head gives the direction to face
     var at = lane.getPointAtLength(len * progress);
-    rig.setAttribute('cx', at.x); rig.setAttribute('cy', at.y);
-    halo.setAttribute('cx', at.x); halo.setAttribute('cy', at.y);
+    var ahead = lane.getPointAtLength(Math.min(len * progress + 2, len));
+    var angle = Math.atan2(ahead.y - at.y, ahead.x - at.x) * 180 / Math.PI;
+    head.setAttribute('transform',
+      'translate(' + at.x + ',' + at.y + ') rotate(' + angle + ')');
   }
 
   function onScroll() {
