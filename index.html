@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AM Cargo</title>
-<meta name="description" content="Cross-border container haulage across East Africa. A fleet of 65 trucks moving cargo on schedule, documented end to end.">
+<meta name="description" content="Cross-border container haulage across East Africa. A fleet of 155 trucks moving cargo on schedule, documented end to end.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Saira+Stencil+One&display=swap">
@@ -144,10 +144,6 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 .card .body{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
 .card h3{font-size:21px;line-height:1.22;letter-spacing:-.012em;margin:0 0 8px;font-weight:600}
 .card p{margin:0;color:var(--grey);font-size:15px;line-height:1.6}
-.card .more{margin-top:16px;font-family:var(--label);text-transform:uppercase;
-  letter-spacing:.14em;font-size:13.5px;color:var(--red);display:inline-flex;
-  align-items:center;gap:8px;transition:gap .2s}
-.card .more svg{transition:transform .2s}
 
 /* the SLB-style inversion: the whole card flips to ink on hover */
 .card:hover{transform:translateY(-6px);box-shadow:var(--lift-lg);
@@ -155,8 +151,6 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 .card:hover h3{color:#fff}
 .card:hover p{color:#B9BDC2}
 .card:hover .shot img{transform:scale(1.055)}
-.card:hover .more{color:#fff}
-.card:hover .more svg{transform:translateX(4px)}
 
 /* a wide card that leads a grid */
 .cards.lead{grid-template-columns:1.55fr 1fr 1fr}
@@ -285,13 +279,13 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
    Saira Stencil One has a single weight, so asking for 600 only produces a
    synthetic bold that fills in the cuts. Everything set in it sits at 400,
    with slightly tighter tracking because the cut letters already breathe.   */
-.eyebrow,.logo b,.mast nav a,.mast .cta,.btn,.strip .k,.card .tag,.card .more,
+.eyebrow,.logo b,.mast nav a,.mast .cta,.btn,.strip .k,.card .tag,
 .hero .kicker,.route .k,.foot h5,.pledge .n,.f,.contact .k,.feature .stamp{font-weight:400}
 .eyebrow{letter-spacing:.13em}
 .hero .kicker{letter-spacing:.14em}
 .card .tag,.route .k,.feature .stamp{letter-spacing:.1em}
 .strip .k,.contact .k,.foot h5{letter-spacing:.11em}
-.mast nav a,.mast .cta,.btn,.card .more{letter-spacing:.09em}
+.mast nav a,.mast .cta,.btn{letter-spacing:.09em}
 </style>
 </head>
 <body>
@@ -321,7 +315,7 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
   <div class="wrap">
     <span class="kicker">Cross-border haulage &middot; East Africa</span>
     <h1>Fast, <em>Reliable</em> Cargo Across East Africa.</h1>
-    <p>Sixty-five trucks working the ports, borders and inland routes of East Africa.
+    <p>155 trucks working the ports, borders and inland routes of East Africa.
        Your cargo leaves on schedule and arrives documented, from the first seal to
        the final signature.</p>
     <div class="acts">
@@ -333,7 +327,7 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 
 <div class="strip">
   <div class="wrap">
-    <div class="cell"><p class="k">Fleet</p><p class="v">65 trucks</p></div>
+    <div class="cell"><p class="k">Fleet</p><p class="v">155 trucks</p></div>
     <div class="cell"><p class="k">Coverage</p><p class="v">Across East Africa</p></div>
     <div class="cell"><p class="k">Containers</p><p class="v">20&#39; and 40&#39;</p></div>
     <div class="cell"><p class="k">Payload</p><p class="v">Up to 32 tonnes per load</p></div>
@@ -362,8 +356,6 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
           <p>Sealed containers cleared at the port and run inland across East Africa.
              Cargo stays in bond the whole way, with the paperwork moving alongside
              the truck rather than behind it.</p>
-          <span class="more">Talk to us
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
         </div>
       </article>
 
@@ -376,8 +368,6 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
           <h3>Port collection and delivery</h3>
           <p>Collection from the terminal and delivery to the door, including the
              empty return. We take the container off your hands at the gate.</p>
-          <span class="more">Talk to us
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
         </div>
       </article>
 
@@ -390,8 +380,6 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
           <h3>Staging and trailer hire</h3>
           <p>Secure standing space for loaded and empty units between legs, with
              trailers available when your own fleet is stretched.</p>
-          <span class="more">Talk to us
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
         </div>
       </article>
     </div>
@@ -448,12 +436,12 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
       </div>
       <div>
         <p class="eyebrow">The equipment</p>
-        <h2 class="sec">Sixty-five trucks, kept on the road.</h2>
+        <h2 class="sec">155 trucks, kept on the road.</h2>
         <p class="lede">Every horse carries a standing driver and trailer, so the crew
            on your load is the crew that knows the unit. Maintenance is scheduled
            around the route, not around a breakdown.</p>
         <ul>
-          <li>A fleet of 65 prime movers on 20&#39; and 40&#39; skeletal trailers</li>
+          <li>A fleet of 155 prime movers on 20&#39; and 40&#39; skeletal trailers</li>
           <li>Payloads up to 32 tonnes per load</li>
           <li>A named driver and trailer assigned to each truck</li>
           <li>Every movement logged from dispatch through to delivery</li>
