@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A.M. Coach Haulage</title>
+<meta name="description" content="Cross-border container haulage across East Africa. A fleet of 65 trucks moving cargo on schedule, documented end to end.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Saira+Stencil+One&display=swap">
+<style>
+:root{
+  --ink:#0B0B0C;
+  --ink-2:#17181A;
+  --ink-3:#26282B;
+  --red:#D2101E;
+  --red-dim:#A50D18;
+  --white:#FFFFFF;
+  --paper:#EBEDEF;
+  --paper-2:#E1E4E6;
+  --silver:#C6CACD;
+  --silver-2:#DDE0E2;
+  --grey:#6E7276;
+  --grey-2:#8E9296;
+  --lift:0 1px 2px rgba(11,11,12,.05),0 10px 28px rgba(11,11,12,.07);
+  --lift-sm:0 1px 2px rgba(11,11,12,.05),0 4px 12px rgba(11,11,12,.05);
+
+  --display:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --label:'Saira Stencil One','Stardos Stencil',Impact,sans-serif;
+
+  --gutter:clamp(20px,4vw,52px);
+  --maxw:1380px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--ink);
+  font:16px/1.62 var(--display);-webkit-font-smoothing:antialiased}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+
+.eyebrow{font-family:var(--label);text-transform:uppercase;letter-spacing:.18em;
+  font-size:13px;font-weight:600;color:var(--red);margin:0 0 10px}
+h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
+  font-weight:700;margin:0 0 14px}
+.lede{font-size:clamp(16px,1.35vw,18.5px);color:var(--grey);max-width:62ch;margin:0}
+
+/* ---------------------------------------------------------------- masthead */
+.mast{position:sticky;top:0;z-index:50;background:rgba(11,11,12,.94);
+  backdrop-filter:blur(9px);border-bottom:1px solid #232528}
+.mast .wrap{display:flex;align-items:center;gap:18px;height:66px}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:auto}
+.logo i{width:13px;height:27px;background:var(--red);transform:skewX(-12deg);display:block;flex:none}
+.logo b{color:#fff;font-family:var(--label);font-size:22px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:600;white-space:nowrap}
+.mast nav{display:flex;gap:4px}
+.mast nav a{font-family:var(--label);text-transform:uppercase;letter-spacing:.13em;
+  font-size:15px;color:#B9BDC2;text-decoration:none;padding:9px 13px;border-radius:2px;
+  transition:color .15s,background .15s}
+.mast nav a:hover{color:#fff;background:#1E2023}
+.mast .cta{background:var(--red);color:#fff;font-family:var(--label);text-transform:uppercase;
+  letter-spacing:.13em;font-size:15px;padding:10px 18px;text-decoration:none;border-radius:2px;
+  transition:background .15s}
+.mast .cta:hover{background:var(--red-dim)}
+.burger{display:none;background:0;border:0;color:#fff;padding:8px;cursor:pointer}
+
+/* -------------------------------------------------------------------- hero */
+.hero{position:relative;min-height:min(82vh,780px);display:flex;align-items:flex-end;
+  background:var(--ink);overflow:hidden}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:.62;filter:saturate(.92)}
+.hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(11,11,12,.62) 0%,rgba(11,11,12,.18) 38%,rgba(11,11,12,.93) 100%)}
+.hero .wrap{position:relative;z-index:2;padding-top:90px;padding-bottom:clamp(44px,6vw,86px)}
+.hero .kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--label);
+  text-transform:uppercase;letter-spacing:.2em;font-size:14px;color:#fff;font-weight:600;
+  background:rgba(210,16,30,.9);padding:7px 14px;border-radius:2px}
+.hero h1{color:#fff;font-size:clamp(38px,6.4vw,82px);line-height:1.02;letter-spacing:-.032em;
+  font-weight:700;margin:20px 0 0;max-width:17ch}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero p{color:#D6D9DC;font-size:clamp(16px,1.5vw,20px);max-width:56ch;margin:18px 0 0}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--label);
+  text-transform:uppercase;letter-spacing:.13em;font-size:16px;padding:13px 24px;
+  text-decoration:none;border:1px solid transparent;border-radius:2px;cursor:pointer;
+  transition:background .16s,color .16s,border-color .16s}
+.btn.pri{background:var(--red);color:#fff;border-color:var(--red)}
+.btn.pri:hover{background:#fff;color:var(--ink);border-color:#fff}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+.btn.ghost:hover{background:#fff;color:var(--ink);border-color:#fff}
+.btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.dark:hover{background:var(--red);border-color:var(--red)}
+
+/* --------------------------------------------------------------- corridors */
+.strip{background:var(--ink);color:#fff;border-top:3px solid var(--red)}
+.strip .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1px;background:#26282B;padding-left:0;padding-right:0}
+.strip .cell{background:var(--ink);padding:22px clamp(20px,3vw,34px)}
+.strip .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.16em;
+  font-size:12.5px;color:var(--grey-2);margin:0}
+.strip .v{font-size:20px;font-weight:600;margin:4px 0 0;letter-spacing:-.01em}
+
+/* ------------------------------------------------------------------- bands */
+.band{padding:clamp(56px,7vw,104px) 0}
+.band.paper{background:var(--paper)}
+.band .head{max-width:var(--maxw);margin:0 auto 38px}
+
+/* ---- the card grid, image over label over headline --------------------- */
+.cards{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.card{position:relative;background:var(--white);border:1px solid var(--silver-2);
+  border-radius:3px;overflow:hidden;box-shadow:var(--lift-sm);display:flex;flex-direction:column;
+  text-decoration:none;color:inherit;
+  transition:transform .22s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease}
+.card .shot{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--ink-2)}
+.card .shot img{width:100%;height:100%;object-fit:cover;
+  transition:transform .5s cubic-bezier(.2,.7,.3,1),filter .3s}
+.card .tag{position:absolute;left:0;bottom:0;background:var(--red);color:#fff;
+  font-family:var(--label);text-transform:uppercase;letter-spacing:.15em;font-size:12.5px;
+  font-weight:600;padding:6px 13px}
+.card .body{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:21px;line-height:1.22;letter-spacing:-.012em;margin:0 0 8px;font-weight:600}
+.card p{margin:0;color:var(--grey);font-size:15px;line-height:1.6}
+.card .more{margin-top:16px;font-family:var(--label);text-transform:uppercase;
+  letter-spacing:.14em;font-size:13.5px;color:var(--red);display:inline-flex;
+  align-items:center;gap:8px;transition:gap .2s}
+.card .more svg{transition:transform .2s}
+
+/* the SLB-style inversion: the whole card flips to ink on hover */
+.card:hover{transform:translateY(-4px);box-shadow:var(--lift);
+  background:var(--ink);border-color:var(--ink)}
+.card:hover h3{color:#fff}
+.card:hover p{color:#B9BDC2}
+.card:hover .shot img{transform:scale(1.055)}
+.card:hover .more{color:#fff}
+.card:hover .more svg{transform:translateX(4px)}
+
+/* a wide card that leads a grid */
+.cards.lead{grid-template-columns:1.55fr 1fr 1fr}
+.cards.lead .card:first-child .shot{aspect-ratio:16/9}
+.cards.lead .card:first-child h3{font-size:26px}
+@media(max-width:1040px){.cards.lead{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}}
+
+/* ---- split feature: image one side, copy the other --------------------- */
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,64px);align-items:center}
+.feature.flip .shot{order:2}
+.feature .shot{position:relative;border-radius:3px;overflow:hidden;box-shadow:var(--lift);
+  aspect-ratio:4/3}
+.feature .shot img{width:100%;height:100%;object-fit:cover}
+.feature .shot .stamp{position:absolute;left:0;top:26px;background:var(--red);color:#fff;
+  font-family:var(--label);text-transform:uppercase;letter-spacing:.16em;font-size:13px;
+  font-weight:600;padding:8px 18px}
+.feature ul{list-style:none;margin:22px 0 0;padding:0}
+.feature li{position:relative;padding:11px 0 11px 26px;border-top:1px solid var(--silver-2);
+  color:var(--ink);font-size:15.5px}
+.feature li:last-child{border-bottom:1px solid var(--silver-2)}
+.feature li::before{content:"";position:absolute;left:0;top:19px;width:9px;height:2px;
+  background:var(--red)}
+@media(max-width:900px){
+  .feature{grid-template-columns:1fr}
+  .feature.flip .shot{order:0}
+}
+
+/* ---- corridor cards, dark with the image bled in ----------------------- */
+.routes{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.route{position:relative;min-height:340px;border-radius:3px;overflow:hidden;
+  display:flex;align-items:flex-end;background:var(--ink);text-decoration:none;color:#fff;
+  transition:transform .22s ease,box-shadow .22s ease}
+.route img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72;
+  transition:transform .55s cubic-bezier(.2,.7,.3,1),opacity .3s}
+/* dark enough for the type to sit on, light enough to still read as a photograph */
+.route::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(11,11,12,.05) 0%,rgba(11,11,12,.35) 45%,rgba(11,11,12,.9) 100%)}
+.route .in{position:relative;z-index:2;padding:26px 26px 24px;width:100%}
+.route .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.17em;
+  font-size:12.5px;color:#fff;background:var(--red);display:inline-block;padding:5px 11px;
+  margin-bottom:12px}
+.route h3{font-size:26px;margin:0;letter-spacing:-.015em;font-weight:600}
+.route p{margin:8px 0 0;color:#C9CDD1;font-size:15px}
+.route:hover{transform:translateY(-4px);box-shadow:var(--lift)}
+.route:hover img{transform:scale(1.05);opacity:.85}
+
+/* ---- diagonal band, carried over from the first build ------------------ */
+.diag{position:relative;background:var(--ink);color:#fff;overflow:hidden;
+  padding:clamp(54px,7vw,96px) 0}
+.diag::before{content:"";position:absolute;right:-14%;top:-40%;width:62%;height:190%;
+  background:linear-gradient(180deg,#17181A,#0B0B0C);transform:rotate(11deg);opacity:.85}
+.diag::after{content:"";position:absolute;right:-6%;top:-40%;width:2px;height:190%;
+  background:var(--red);transform:rotate(11deg);opacity:.7}
+.diag .wrap{position:relative;z-index:2}
+.diag h2{color:#fff}
+.diag .lede{color:#B9BDC2}
+.pledge{display:grid;gap:1px;background:#26282B;margin-top:40px;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.pledge div{background:var(--ink);padding:24px 22px;transition:background .2s}
+.pledge div:hover{background:var(--red)}
+.pledge .n{font-family:var(--label);font-size:13px;letter-spacing:.18em;color:var(--red);
+  text-transform:uppercase;margin:0;transition:color .2s}
+.pledge div:hover .n{color:#fff}
+.pledge h4{margin:8px 0 6px;font-size:18.5px;font-weight:600;letter-spacing:-.01em}
+.pledge p{margin:0;color:#A9ADB2;font-size:14.5px;line-height:1.58;transition:color .2s}
+.pledge div:hover p{color:#F3D8DA}
+
+/* ------------------------------------------------------------------ enquiry */
+.enq{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,60px);align-items:start}
+.enq form{background:var(--white);border:1px solid var(--silver-2);border-radius:3px;
+  padding:clamp(22px,3vw,32px);box-shadow:var(--lift-sm)}
+.fg{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.f{display:flex;flex-direction:column;gap:6px;font-family:var(--label);
+  text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:var(--grey)}
+.f.wide{grid-column:1/-1}
+.f input,.f select,.f textarea{font:15px/1.5 var(--display);color:var(--ink);
+  border:1px solid var(--silver);border-radius:2px;padding:11px 12px;background:#fff;
+  text-transform:none;letter-spacing:0}
+.f input:focus,.f select:focus,.f textarea:focus{outline:2px solid var(--red);outline-offset:-1px;
+  border-color:var(--red)}
+.f textarea{resize:vertical;min-height:92px}
+.enq .note{margin:14px 0 0;font-size:13px;color:var(--grey)}
+.contact{list-style:none;margin:24px 0 0;padding:0}
+.contact li{display:flex;gap:14px;padding:15px 0;border-top:1px solid var(--silver-2)}
+.contact li:last-child{border-bottom:1px solid var(--silver-2)}
+.contact .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.14em;
+  font-size:12.5px;color:var(--grey);width:98px;flex:none;padding-top:2px}
+.contact .v{font-size:16px}
+.contact a{text-decoration:none;border-bottom:1px solid var(--silver)}
+.contact a:hover{color:var(--red);border-color:var(--red)}
+@media(max-width:900px){.enq{grid-template-columns:1fr}.fg{grid-template-columns:1fr}}
+
+/* ------------------------------------------------------------------ footer */
+.foot{background:var(--ink);color:#9A9EA3;padding:54px 0 30px;font-size:14.5px}
+.foot .cols{display:grid;gap:30px;grid-template-columns:1.6fr 1fr 1fr;padding-bottom:34px;
+  border-bottom:1px solid #26282B}
+.foot h5{font-family:var(--label);text-transform:uppercase;letter-spacing:.16em;font-size:13px;
+  color:#fff;margin:0 0 12px;font-weight:600}
+.foot p{margin:0 0 6px;line-height:1.7}
+.foot .logo{margin:0 0 14px}
+.foot .base{padding-top:20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;
+  font-size:13px;color:#74787D}
+@media(max-width:820px){.foot .cols{grid-template-columns:1fr}}
+
+/* ---------------------------------------------------------------- responsive */
+@media(max-width:880px){
+  .burger{display:block}
+  .mast nav{position:absolute;top:66px;left:0;right:0;flex-direction:column;gap:0;
+    background:var(--ink);border-bottom:1px solid #232528;padding:8px 0;display:none}
+  .mast nav.open{display:flex}
+  .mast nav a{padding:13px var(--gutter);border-radius:0}
+  .mast .cta{padding:9px 13px;font-size:14px}
+  .logo b{font-size:18px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .hero video{display:none}
+}
+
+/* ---- stencil labels -------------------------------------------------------
+   Saira Stencil One has a single weight, so asking for 600 only produces a
+   synthetic bold that fills in the cuts. Everything set in it sits at 400,
+   with slightly tighter tracking because the cut letters already breathe.   */
+.eyebrow,.logo b,.mast nav a,.mast .cta,.btn,.strip .k,.card .tag,.card .more,
+.hero .kicker,.route .k,.foot h5,.pledge .n,.f,.contact .k,.feature .stamp{font-weight:400}
+.eyebrow{letter-spacing:.13em}
+.hero .kicker{letter-spacing:.14em}
+.card .tag,.route .k,.feature .stamp{letter-spacing:.1em}
+.strip .k,.contact .k,.foot h5{letter-spacing:.11em}
+.mast nav a,.mast .cta,.btn,.card .more{letter-spacing:.09em}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <a class="logo" href="#top"><i></i><b>A.M. Coach</b></a>
+    <nav id="nav">
+      <a href="#services">Services</a>
+      <a href="#routes">Routes</a>
+      <a href="#fleet">Fleet</a>
+      <a href="#standards">Standards</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="cta" href="#contact">Request a quote</a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ------------------------------------------------------------------ hero -->
+<section class="hero" id="top">
+  <video autoplay muted loop playsinline poster="media/road-haul.jpg">
+    <source src="media/hero.mp4" type="video/mp4">
+  </video>
+  <div class="wrap">
+    <span class="kicker">Cross-border haulage &middot; East Africa</span>
+    <h1>Fast, <em>Reliable</em> Cargo Across East Africa.</h1>
+    <p>Sixty-five trucks working the ports, borders and inland routes of East Africa.
+       Your cargo leaves on schedule and arrives documented, from the first seal to
+       the final signature.</p>
+    <div class="acts">
+      <a class="btn pri" href="#contact">Request a quote</a>
+      <a class="btn ghost" href="#services">What we move</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="cell"><p class="k">Fleet</p><p class="v">65 trucks</p></div>
+    <div class="cell"><p class="k">Coverage</p><p class="v">Across East Africa</p></div>
+    <div class="cell"><p class="k">Containers</p><p class="v">20&#39; and 40&#39;</p></div>
+    <div class="cell"><p class="k">Payload</p><p class="v">Up to 32 tonnes per load</p></div>
+  </div>
+</div>
+
+<!-- -------------------------------------------------------------- services -->
+<section class="band" id="services">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">What we do</p>
+      <h2 class="sec">Haulage, handled end to end.</h2>
+      <p class="lede">We move containers between the ports, borders and inland cities of
+         East Africa. One company holds the load from the quayside to the consignee&#39;s
+         yard, so there is never a question of who is responsible for it.</p>
+    </div>
+
+    <div class="cards lead">
+      <article class="card">
+        <div class="shot">
+          <img src="media/road-haul.jpg" alt="Articulated truck hauling a forty foot container on the highway" loading="lazy">
+          <span class="tag">Long haul</span>
+        </div>
+        <div class="body">
+          <h3>Cross-border container haulage</h3>
+          <p>Sealed containers cleared at the port and run inland across East Africa.
+             Cargo stays in bond the whole way, with the paperwork moving alongside
+             the truck rather than behind it.</p>
+          <span class="more">Talk to us
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="shot">
+          <img src="media/port-crane.jpg" alt="Ship-to-shore crane lifting a container onto a waiting truck" loading="lazy">
+          <span class="tag">Port work</span>
+        </div>
+        <div class="body">
+          <h3>Port collection and delivery</h3>
+          <p>Collection from the terminal and delivery to the door, including the
+             empty return. We take the container off your hands at the gate.</p>
+          <span class="more">Talk to us
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="shot">
+          <img src="media/depot-stack.jpg" alt="Containers stacked in a depot" loading="lazy">
+          <span class="tag">Depot</span>
+        </div>
+        <div class="body">
+          <h3>Staging and trailer hire</h3>
+          <p>Secure standing space for loaded and empty units between legs, with
+             trailers available when your own fleet is stretched.</p>
+          <span class="more">Talk to us
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------------------------------------------------------- routes -->
+<section class="band paper" id="routes">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Where we run</p>
+      <h2 class="sec">One network across East Africa.</h2>
+      <p class="lede">We work the coastal ports, the inland border posts and the roads
+         between them. Wherever the cargo lands and wherever it is going, the same
+         company carries it the whole way.</p>
+    </div>
+
+    <div class="routes">
+      <a class="route" href="#contact">
+        <img src="media/container-vans.jpg" alt="Container trucks working a port terminal" loading="lazy">
+        <div class="in">
+          <span class="k">Coast</span>
+          <h3>Ports and terminals</h3>
+          <p>Collection off the quayside and out through the gate.</p>
+        </div>
+      </a>
+      <a class="route" href="#contact">
+        <img src="media/freight-open-road.jpg" alt="Loaded trailer running the inland highway" loading="lazy">
+        <div class="in">
+          <span class="k">In transit</span>
+          <h3>Cross-border transit</h3>
+          <p>Bonded cargo through the region&#39;s border posts.</p>
+        </div>
+      </a>
+      <a class="route" href="#contact">
+        <img src="media/truck-at-depot.jpg" alt="Container on a trailer at an inland depot" loading="lazy">
+        <div class="in">
+          <span class="k">Inland</span>
+          <h3>Delivery inland</h3>
+          <p>Onward to yards and depots across the interior.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ----------------------------------------------------------------- fleet -->
+<section class="band" id="fleet">
+  <div class="wrap">
+    <div class="feature">
+      <div class="shot">
+        <img src="media/fleet-line.jpg" alt="Line of heavy goods vehicles parked at a depot" loading="lazy">
+        <span class="stamp">Our fleet</span>
+      </div>
+      <div>
+        <p class="eyebrow">The equipment</p>
+        <h2 class="sec">Sixty-five trucks, kept on the road.</h2>
+        <p class="lede">Every horse carries a standing driver and trailer, so the crew
+           on your load is the crew that knows the unit. Maintenance is scheduled
+           around the route, not around a breakdown.</p>
+        <ul>
+          <li>A fleet of 65 prime movers on 20&#39; and 40&#39; skeletal trailers</li>
+          <li>Payloads up to 32 tonnes per load</li>
+          <li>A named driver and trailer assigned to each truck</li>
+          <li>Every movement logged from dispatch through to delivery</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------- standards -->
+<section class="diag" id="standards">
+  <div class="wrap">
+    <p class="eyebrow">How we work</p>
+    <h2 class="sec">Nothing about your cargo should be a guess.</h2>
+    <p class="lede">Haulage goes wrong in the gaps: nobody knows which truck took the
+       load, nobody can find the receipt, nobody agrees what was settled. We close
+       those gaps as a matter of routine.</p>
+
+    <div class="pledge">
+      <div>
+        <p class="n">01</p>
+        <h4>One truck, one record</h4>
+        <p>Every container is tied to the horse, trailer and driver that carried it,
+           and that record does not change afterwards.</p>
+      </div>
+      <div>
+        <p class="n">02</p>
+        <h4>Told before you ask</h4>
+        <p>Dispatch, border crossing and delivery are confirmed as they happen, so
+           you are not chasing a phone number for an answer.</p>
+      </div>
+      <div>
+        <p class="n">03</p>
+        <h4>Invoices that reconcile</h4>
+        <p>An agreed price up front, a proper invoice against it, and a balance
+           that always matches what you have actually paid.</p>
+      </div>
+      <div>
+        <p class="n">04</p>
+        <h4>Answerable to you</h4>
+        <p>A small firm where the people quoting the job are the people running it.
+           You deal with the office, not a call centre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- --------------------------------------------------------------- enquiry -->
+<section class="band paper" id="contact">
+  <div class="wrap">
+    <div class="enq">
+      <div>
+        <p class="eyebrow">Get in touch</p>
+        <h2 class="sec">Tell us what needs moving.</h2>
+        <p class="lede">Send the route, the container size and roughly when it is ready.
+           We will come back with a price and a date.</p>
+
+        <ul class="contact">
+          <li><span class="k">Telephone</span>
+              <span class="v"><a href="tel:+255782585727">+255 782 585 727</a></span></li>
+          <li><span class="k">WhatsApp</span>
+              <span class="v"><a href="https://api.whatsapp.com/send?phone=255782585727" target="_blank" rel="noopener">+255 782 585 727</a></span></li>
+          <li><span class="k">Post</span>
+              <span class="v">P.O. Box 36, Dar es Salaam<br>Tanzania</span></li>
+          <li><span class="k">Hours</span>
+              <span class="v">Monday to Saturday, 08:00 &ndash; 18:00 EAT</span></li>
+        </ul>
+      </div>
+
+      <form id="quote" novalidate>
+        <div class="fg">
+          <label class="f wide">Your name
+            <input name="name" autocomplete="name" required></label>
+          <label class="f">Company
+            <input name="company" autocomplete="organization"></label>
+          <label class="f">Telephone
+            <input name="phone" type="tel" autocomplete="tel" required></label>
+          <label class="f">Collecting from
+            <select name="from">
+              <option>Dar es Salaam port</option>
+              <option>Elsewhere in Tanzania</option>
+              <option>Another port or country</option>
+            </select></label>
+          <label class="f">Delivering to
+            <select name="to">
+              <option>Tanzania</option>
+              <option>Rwanda</option>
+              <option>Burundi</option>
+              <option>Uganda</option>
+              <option>Kenya</option>
+              <option>Elsewhere in the region</option>
+            </select></label>
+          <label class="f">Container size
+            <select name="size"><option>40&#39;</option><option>20&#39;</option><option>Not sure yet</option></select></label>
+          <label class="f">Ready by
+            <input name="ready" type="date"></label>
+          <label class="f wide">Anything else we should know
+            <textarea name="notes" placeholder="Cargo type, number of containers, special handling"></textarea></label>
+        </div>
+        <div style="margin-top:18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+          <button class="btn dark" type="submit">Send enquiry</button>
+          <span class="note" id="formnote">We reply the same working day.</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="logo" href="#top"><i></i><b>A.M. Coach</b></a>
+        <p>A.M. Coach Company Ltd</p>
+        <p>Cross-border container haulage across East Africa,
+           from the port gate to the consignee&#39;s yard.</p>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <p><a href="#services" style="text-decoration:none">Transit containers</a></p>
+        <p><a href="#services" style="text-decoration:none">Port collection</a></p>
+        <p><a href="#services" style="text-decoration:none">Staging and trailer hire</a></p>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <p><a href="tel:+255782585727" style="text-decoration:none">+255 782 585 727</a></p>
+        <p>P.O. Box 36, Dar es Salaam</p>
+        <p>Tanzania</p>
+      </div>
+    </div>
+    <div class="base">
+      <span>&copy; <span id="yr">2026</span> A.M. Coach Company Ltd. All rights reserved.</span>
+      <span>Ports &middot; borders &middot; inland East Africa</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// menu on small screens
+var burger = document.getElementById('burger'), nav = document.getElementById('nav');
+burger.addEventListener('click', function () {
+  var open = nav.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+nav.addEventListener('click', function (e) {
+  if (e.target.tagName === 'A') { nav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+});
+
+// The enquiry form has nowhere to post yet, so it hands the message to WhatsApp
+// rather than pretending to have sent something.
+document.getElementById('quote').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var f = e.target, note = document.getElementById('formnote');
+  var name = f.name.value.trim(), phone = f.phone.value.trim();
+
+  if (!name || !phone) {
+    note.textContent = 'Please leave a name and a telephone number.';
+    note.style.color = '#A50D18';
+    return;
+  }
+
+  var nl = String.fromCharCode(10);
+  var lines = [
+    'Quote request - A.M. Coach',
+    '',
+    'Name: ' + name,
+    f.company.value.trim() ? 'Company: ' + f.company.value.trim() : '',
+    'Telephone: ' + phone,
+    'From: ' + f.from.value,
+    'To: ' + f.to.value,
+    'Container: ' + f.size.value,
+    f.ready.value ? 'Ready by: ' + f.ready.value : '',
+    f.notes.value.trim() ? '' + nl + f.notes.value.trim() : ''
+  ].filter(Boolean).join(nl);
+
+  window.open('https://api.whatsapp.com/send?phone=255782585727&text=' +
+              encodeURIComponent(lines), '_blank', 'noopener');
+  note.textContent = 'Opening WhatsApp with your enquiry.';
+  note.style.color = '';
+});
+</script>
+</body>
+</html>
