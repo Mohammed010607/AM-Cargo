@@ -352,7 +352,7 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
    A single red line down the left with a head that points the way it is
    going. It only runs beside the light half of the page, which is where the
    reading actually happens.                                              */
-.road{position:fixed;left:8px;top:0;height:100vh;z-index:40;pointer-events:none;
+.road{position:fixed;left:13px;top:0;height:100vh;z-index:40;pointer-events:none;
   opacity:0;transition:opacity .35s ease}
 .road.on{opacity:1}
 .road svg{height:100vh;width:auto;display:block;overflow:visible}
@@ -360,7 +360,7 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 .road .head{fill:var(--red)}
 
 /* Below this the page margin is too narrow to give the line its own room */
-@media(max-width:1200px){.road{display:none}}
+@media(max-width:1260px){.road{display:none}}
 @media(prefers-reduced-motion:reduce){.road{display:none}}
 
 @media(prefers-reduced-motion:reduce){
@@ -391,9 +391,9 @@ h2.sec{font-size:clamp(28px,3.6vw,46px);line-height:1.08;letter-spacing:-.022em;
 <body>
 
 <div class="road" aria-hidden="true">
-  <svg viewBox="0 0 36 900" preserveAspectRatio="xMidYMin meet">
-    <path id="lane" fill="none" stroke="none" d="M18,4 C4,22 4,50 18,68 C32,86 32,114 18,131 C4,149 4,177 18,195 C32,213 32,241 18,259 C4,277 4,305 18,323 C32,340 32,368 18,386 C4,404 4,432 18,450 C32,468 32,496 18,514 C4,532 4,560 18,577 C32,595 32,623 18,641 C4,659 4,687 18,705 C32,723 32,751 18,769 C4,786 4,814 18,832 C32,850 32,878 18,896"/>
-    <path class="travelled" id="travelled" d="M18,4 C4,22 4,50 18,68 C32,86 32,114 18,131 C4,149 4,177 18,195 C32,213 32,241 18,259 C4,277 4,305 18,323 C32,340 32,368 18,386 C4,404 4,432 18,450 C32,468 32,496 18,514 C4,532 4,560 18,577 C32,595 32,623 18,641 C4,659 4,687 18,705 C32,723 32,751 18,769 C4,786 4,814 18,832 C32,850 32,878 18,896"/>
+  <svg viewBox="0 0 40 900" preserveAspectRatio="xMidYMin meet">
+    <path id="lane" fill="none" stroke="none" d="M20,4 C5,49 5,108 20,153 C35,197 35,257 20,301 C5,346 5,405 20,450 C35,495 35,554 20,599 C5,643 5,703 20,747 C35,792 35,851 20,896"/>
+    <path class="travelled" id="travelled" d="M20,4 C5,49 5,108 20,153 C35,197 35,257 20,301 C5,346 5,405 20,450 C35,495 35,554 20,599 C5,643 5,703 20,747 C35,792 35,851 20,896"/>
     <polygon class="head" id="head" points="8,0 -5,-5.5 -5,5.5"/>
   </svg>
 </div>
